@@ -1,0 +1,444 @@
+{
+  "type": "object",
+  "required": [
+    "entry",
+    "entity",
+    "entity_poly"
+  ],
+  "properties": {
+    "entry": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "gives a name to this entry, must be a string and is required"
+        }
+      }
+    },
+    "entity": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "src_method",
+        "pdbx_number_of_molecules"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "uniquely identifies an entity, must be a string and is required"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "polymer"
+          ],
+          "description": "defines the type of the entity, must be a string and is required"
+        },
+        "src_method": {
+          "type": "string",
+          "enum": [
+            "nat",
+            "man",
+            "syn"
+          ],
+          "description": "defines the method by which the sample for the entity was produced, must be a string and is required"
+        },
+        "pdbx_number_of_molecules": {
+          "type": "number",
+          "description": "describes the number of molecules of the entity in the entry, is required"
+        },
+        "pdbx_description": {
+          "type": "string",
+          "description": "entity description, must be a string and is not required"
+        },
+        "pdbx_ec": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          },
+          "description": "EC number(s) associated with entity"
+        }
+      }
+    },
+    "entity_name_com": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "a common name for the entity"
+        }
+      }
+    },
+    "entity_poly": {
+      "type": "object",
+      "required": [
+        "type",
+        "rcsb_type",
+        "pdbx_strand_id",
+        "pdbx_seq_one_letter_code_can"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "cyclic-pseudo-peptide",
+            "peptide nucleic acid",
+            "polydeoxyribonucleotide",
+            "polydeoxyribonucleotide/polyribonucleotide hybrid",
+            "polypeptide(D)",
+            "polypeptide(L)",
+            "polyribonucleotide",
+            "polysaccharide(D)",
+            "polysaccharide(L)",
+            "other"
+          ],
+          "description": "specifies the type of the polymer, must be a string and is required"
+        },
+        "rcsb_type": {
+          "type": "string",
+          "enum": [
+            "polypeptide",
+            "polynucleotide",
+            "hybrid",
+            "other"
+          ],
+          "description": "must be a string, only be one of the given enum values and is required"
+        },
+        "pdbx_strand_id": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "description": "chain id corresponding to this polymer entity"
+          },
+          "description": "al chain ids corresponding to this polymer entity, must be an array and is required"
+        },
+        "pdbx_seq_one_letter_code_can": {
+          "type": "string",
+          "description": "describes the canonical chemical sequence expressed as string of one-letter amino acid codes, must be a string and is required"
+        }
+      }
+    },
+    "entity_src_nat": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "pdbx_organism_scientific": {
+            "type": "string",
+            "description": "the scientific name of the organism of the natural source"
+          },
+          "pdbx_ncbi_taxonomy_id": {
+            "type": "string",
+            "description": "NCBI Taxonomy identifier for the source organism"
+          }
+        }
+      }
+    },
+    "entity_src_gen": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "pdbx_gene_src_scientific_name": {
+            "type": "string",
+            "description": "the scientific name of the organism"
+          },
+          "pdbx_gene_src_ncbi_taxonomy_id": {
+            "type": "string",
+            "description": "NCBI Taxonomy identifier for the gene source organism"
+          },
+          "pdbx_host_org_scientific_name": {
+            "type": "string",
+            "description": "the scientific name of the organism that served as host for the production of the entity"
+          },
+          "pdbx_host_org_ncbi_taxonomy_id": {
+            "type": "string",
+            "description": "NCBI Taxonomy identifier for the expression system organism"
+          }
+        }
+      }
+    },
+    "pdbx_entity_src_syn": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "organism_scientific": {
+            "type": "string",
+            "description": "the scientific name of the organism from which the sequence of the synthetic entity was derived"
+          },
+          "ncbi_taxonomy_id": {
+            "type": "string",
+            "description": "NCBI Taxonomy identifier of the organism from which the sequence of the synthetic entity was derived"
+          }
+        }
+      }
+    },
+    "rcsb_organism": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "required": [
+          "scientific_name",
+          "source"
+        ],
+        "properties": {
+          "scientific_name": {
+            "type": "string",
+            "description": "the scientific name of the organism"
+          },
+          "taxonomy_id": {
+            "type": "number",
+            "description": "NCBI Taxonomy identifier for the organism"
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "uniprot",
+              "ncbi",
+              "mmcif"
+            ],
+            "description": "data provenance"
+          }
+        }
+      }
+    },
+    "rcsb_host_organism": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "required": [
+          "scientific_name",
+          "source"
+        ],
+        "properties": {
+          "scientific_name": {
+            "type": "string",
+            "description": "the scientific name of the expression system organism"
+          },
+          "taxonomy_id": {
+            "type": "number",
+            "description": "NCBI Taxonomy identifier for the expression system organism"
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "uniprot",
+              "ncbi",
+              "mmcif"
+            ],
+            "description": "data provenance"
+          }
+        }
+      }
+    },
+    "struct_ref": {
+      "type": "object",
+      "properties": {
+        "pdbx_db_accession": {
+          "type": "array",
+          "description": "allows to relate entities to information archived in external databases",
+          "items": {
+            "type": "string",
+            "description": "accession code assigned by the reference database"
+          }
+        }
+      }
+    },
+    "rcsb_struct_ref": {
+      "type": "object",
+      "required": [
+        "pdbx_db_accession",
+        "source"
+      ],
+      "properties": {
+        "pdbx_db_accession": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "description": "uniprot accession"
+          }
+        },
+        "source": {
+          "type": "string",
+          "enum": [
+            "sifts",
+            "mmcif"
+          ],
+          "description": "data provenance"
+        }
+      }
+    },
+    "struct_ref_seq_dif": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "required": [
+          "db_mon_id",
+          "seq_num",
+          "mon_id",
+          "details"
+        ],
+        "properties": {
+          "db_mon_id": {
+            "type": "string",
+            "description": "monomer type found at this position in the referenced database entry"
+          },
+          "seq_num": {
+            "type": "number",
+            "description": "position of residue in deposited sequence"
+          },
+          "mon_id": {
+            "type": "string",
+            "description": "monomer type found at this position in the sequence of the entity"
+          },
+          "details": {
+            "type": "string",
+            "description": "description of special aspects of the point differences between the sequence of the entity and that in the referenced database entry"
+          }
+        }
+      }
+    },
+    "rcsb_annotation_uniprot": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "required": [
+          "uniprot_accession"
+        ],
+        "properties": {
+          "uniprot_accession": {
+            "type": "string",
+            "description": "identifies UniProtKB entries"
+          },
+          "protein": {
+            "type": "object",
+            "required": [
+              "names"
+            ],
+            "properties": {
+              "names": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "value",
+                    "type"
+                  ],
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "description": "name and synonyms of the protein"
+                    },
+                    "type": {
+                      "type": "string",
+                      "description": "is a controlled vocabulary"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "gene": {
+            "type": "object",
+            "required": [
+              "names"
+            ],
+            "properties": {
+              "names": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "value",
+                    "type"
+                  ],
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "description": "name and synonyms of the gene"
+                    },
+                    "type": {
+                      "type": "string",
+                      "description": "is a controlled vocabulary"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "function": {
+            "type": "string",
+            "description": "general description of the function(s) of a protein"
+          },
+          "ec_numbers": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "description": "attributed EC number(s)"
+            }
+          }
+        }
+      }
+    },
+    "rcsb_annotation_membrane": {
+      "type": "object",
+      "required": [
+        "group_name",
+        "subgroup_name",
+        "protein_name",
+        "source"
+      ],
+      "properties": {
+        "group_name": {
+          "type": "string"
+        },
+        "subgroup_name": {
+          "type": "string"
+        },
+        "protein_name": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string",
+          "enum":[
+            "mpstruct",
+            "homology"
+          ],
+          "description": "data provenance"
+        }
+      }
+    },
+    "rcsb_chimeric":{
+      "type": "boolean",
+      "description": "flag to explicitly annotate entity as chimeric"
+    }
+  }
+}
