@@ -1,0 +1,222 @@
+{
+  "type":"object",
+  "required":[
+    "entry_id",
+    "assembly_id",
+    "rcsb_is_biological"
+  ],
+  "properties": {
+    "entry_id": {
+      "type": "string",
+      "description": "name of the parent entry, must be a string and is required"
+    },
+    "assembly_id": {
+      "type": "number",
+      "description": "uniquely identifies biological assembly, must be an integer and is required"
+    },
+    "pdbx_struct_assembly": {
+      "type":"object",
+      "required":[
+        "details"
+      ],
+      "properties": {
+        "details": {
+          "type": "string",
+          "description": "description of special aspects of the macromolecular assembly"
+        },
+        "method_details": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          },
+          "description": "provides details of the method used to determine or compute the assembly"
+        }
+      }
+    },
+    "pdbx_struct_assembly_auth_evidence": {
+      "type":"array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type":"object",
+        "required":[
+          "experimental_support"
+        ],
+        "properties": {
+          "experimental_support" : {
+            "type": "string",
+            "enum" : [
+              "SAXS",
+              "assay for oligomerization",
+              "cross-linking",
+              "equilibrium centrifugation",
+              "fluorescence resonance energy transfer",
+              "gel filtration",
+              "homology",
+              "immunoprecipitation",
+              "isothermal titration calorimetry",
+              "light scattering",
+              "mass spectrometry",
+              "microscopy",
+              "native gel electrophoresis",
+              "scanning transmission electron microscopy",
+              "surface plasmon resonance",
+              "none"
+            ],
+            "description": "provides the experimental method to determine the state of this assembly"
+          }
+        }
+      }
+    },
+    "rcsb_annotation_symmetry": {
+      "type":"object",
+      "required":[
+        "symmetry_features",
+        "source"
+      ],
+      "properties": {
+        "symmetry_features" : {
+          "type":"array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "required":[
+              "symmetry",
+              "stoichiometry",
+              "clusters",
+              "type"
+            ],
+            "properties": {
+              "symmetry": {
+                "type": "object",
+                "required":[
+                  "value",
+                  "description"
+                ],
+                "properties": {
+                  "value": {
+                    "type": "string",
+                    "description": "point group symmetry"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "point group symmetry description"
+                  }
+                },
+                "description": "arrangement of protein subunits in terms of symmetry"
+              },
+              "stoichiometry": {
+                "type": "object",
+                "required":[
+                  "value",
+                  "description"
+                ],
+                "properties": {
+                  "value": {
+                    "type": "array",
+                    "minItems": 1,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "description": "each type of different subunits is assigned a latter. The number of equivalent subunits is added as a coefficient after each letter (except 1 which is not added explicitly)."
+                    },
+                    "description": "quantitative description of every individual subunit in a given protein."
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "oligomeric state for a given composition of subunits"
+                  }
+                },
+                "description": "quantitative description of the composition of subunits for a given protein"
+              },
+              "clusters": {
+                "type":"array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "type": "object",
+                  "required":[
+                    "members"
+                  ],
+                  "properties": {
+                    "members": {
+                      "type":"array",
+                      "minItems": 1,
+                      "uniqueItems": true,
+                      "items": {
+                        "type": "string",
+                        "description": "subunits that belong to the same cluster"
+                      }
+                    },
+                    "avg_rmsd": {
+                      "type": "number",
+                      "description": "average RMSD between members of a given cluster"
+                    }
+                  }
+                },
+                "description": "clusters of protein subunits"
+              },
+              "symmetry_axes": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "type": "object",
+                  "required":[
+                    "start",
+                    "end"
+                  ],
+                  "properties": {
+                    "start": {
+                      "type": "array",
+                      "minItems": 3,
+                      "maxItems": 3,
+                      "items": {
+                        "type": "number",
+                        "description": "coordinate"
+                      },
+                      "description": "x,y,z coordinate of the start point of a symmetry axis"
+                    },
+                    "end": {
+                      "type": "array",
+                      "minItems": 3,
+                      "maxItems": 3,
+                      "items": {
+                        "type": "number",
+                        "description": "coordinate"
+                      },
+                      "description": "x,y,z coordinates of the end point of a symmetry axis"
+                    },
+                    "order":{
+                      "type": "number"
+                    }
+                  },
+                  "description": "symmetry axis orientation"
+                }
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "global",
+                  "pseudo",
+                  "local"
+                ],
+                "description": "type of protein symmetry"
+              }
+            }
+          }
+        },
+        "source": {
+          "type":"string",
+          "description": "name and version of software used to calculate protein symmetry"
+        }
+      }
+    },
+    "rcsb_is_biological": {
+      "type": "boolean"
+    }
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "type": "object",
+  "required": [
+    "entry_id",
+    "entity_id",
+    "clusters"
+  ],
+  "properties": {
+    "entry_id": {
+      "type": "string",
+      "description": "uniquely identifies a pdb entry"
+    },
+    "entity_id": {
+      "type": "string",
+      "description": "uniquely identifies an entity"
+    },
+    "clusters": {
+      "type": "object",
+      "required": [
+        "software",
+        "membership"
+      ],
+      "properties": {
+        "software": {
+          "type": "string",
+          "description": "name and version of software used to sequence clusters"
+        },
+        "membership": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 9,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "level"
+            ],
+            "properties": {
+              "id": {
+                "type": "number",
+                "description": "cluster id that uniquely identifies a group of entities that share the same level of sequence identity"
+              },
+              "level": {
+                "type": "number",
+                "enum": [
+                  30,
+                  40,
+                  50,
+                  60,
+                  70,
+                  80,
+                  90,
+                  95,
+                  100
+                ],
+                "description": "level of sequence identity"
+              }
+            },
+            "description": "describes membership of entity in sequence clusters at the given level of sequence identity"
+          }
+        }
+      }
+    }
+  }
+}
